@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "cypress open",
-    "run:cy": "cypress run"
+    "cy:run": "cypress run",
+	"cy:run01":"cypress run --spec cypress/e2e/WEB-Test01/1.MyTest.cy.js"
   },
   "author": "hantn",
   "license": "ISC",
