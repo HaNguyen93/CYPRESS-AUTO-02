@@ -1,0 +1,105 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2023-10-10T17:10:48.349Z",
+    "end": "2023-10-10T17:11:10.113Z",
+    "duration": 21764,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "91f0f479-c300-495a-8ee1-5fb858e88c7c",
+      "title": "",
+      "fullFile": "cypress\\e2e\\API-Test\\5.ParsingJSONResponse.cy.js",
+      "file": "cypress\\e2e\\API-Test\\5.ParsingJSONResponse.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "592a4442-8358-453b-8015-b5581285c592",
+          "title": "api test",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "parsing json response- verify total price of 5 elements",
+              "fullTitle": "api test parsing json response- verify total price of 5 elements",
+              "timedOut": null,
+              "duration": 27612,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-videos\",\n  \"value\": \"cypress\\\\e2e\\\\API-Test\\\\5.ParsingJSONResponse.cy.js\"\n}",
+              "code": "let TotalPrice = 0;\ncy.request({\n  method: 'GET',\n  url: 'https://fakestoreapi.com/products',\n  qs: {\n    limit: 5\n  }\n}).then(response => {\n  expect(response.status).to.equal(200);\n  response.body.forEach(element => {\n    TotalPrice = TotalPrice + element.price;\n  });\n  expect(TotalPrice).to.equal(899.23);\n});",
+              "err": {},
+              "uuid": "a15ba2ec-ea76-4849-9a6c-7a4074b5ee6a",
+              "parentUUID": "592a4442-8358-453b-8015-b5581285c592",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "a15ba2ec-ea76-4849-9a6c-7a4074b5ee6a"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 27612,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "reportDir": "cypress\\reports\\html\\.jsons"
+      },
+      "version": "6.2.0"
+    }
+  }
+}

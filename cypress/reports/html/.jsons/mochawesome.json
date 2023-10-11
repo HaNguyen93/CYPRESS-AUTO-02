@@ -1,15 +1,15 @@
 {
   "stats": {
     "suites": 1,
-    "tests": 1,
+    "tests": 2,
     "passes": 1,
     "pending": 0,
-    "failures": 0,
-    "start": "2023-10-06T07:48:05.456Z",
-    "end": "2023-10-06T07:48:23.171Z",
-    "duration": 17715,
-    "testsRegistered": 1,
-    "passPercent": 100,
+    "failures": 1,
+    "start": "2023-10-10T17:06:58.177Z",
+    "end": "2023-10-10T17:07:24.099Z",
+    "duration": 25922,
+    "testsRegistered": 2,
+    "passPercent": 50,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,49 +18,73 @@
   },
   "results": [
     {
-      "uuid": "3b7550b1-b3c3-4e77-91e0-75c15f42aec9",
+      "uuid": "d7e5e1dd-de9c-49fe-a0c6-9a3b5442af9c",
       "title": "",
-      "fullFile": "cypress\\e2e\\10.Handle_File.cy.js",
-      "file": "cypress\\e2e\\10.Handle_File.cy.js",
+      "fullFile": "cypress\\e2e\\API-Test\\9.Oauth2.cy.js",
+      "file": "cypress\\e2e\\API-Test\\9.Oauth2.cy.js",
       "beforeHooks": [],
       "afterHooks": [],
       "tests": [],
       "suites": [
         {
-          "uuid": "4e14ce03-8346-4e38-a3b6-c4a925b828d6",
-          "title": "handle file Upload",
+          "uuid": "5935078b-d391-4d12-87e4-e11084320e55",
+          "title": "Oauth2 testing",
           "fullFile": "",
           "file": "",
           "beforeHooks": [],
           "afterHooks": [],
           "tests": [
             {
-              "title": "File Upload - Shadow Dom",
-              "fullTitle": "handle file Upload File Upload - Shadow Dom",
+              "title": "get the  oauth2  accesss token",
+              "fullTitle": "Oauth2 testing get the  oauth2  accesss token",
               "timedOut": null,
-              "duration": 10118,
+              "duration": 2840,
               "state": "passed",
-              "speed": "slow",
+              "speed": "fast",
               "pass": true,
               "fail": false,
               "pending": false,
-              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-videos\",\n  \"value\": \"cypress\\\\e2e\\\\10.Handle_File.cy.js\"\n}",
-              "code": "cy.visit(\"https://www.htmlelements.com/demos/fileupload/shadow-dom/index.htm\");\ncy.get(\".smart-browse-input\", {\n  includeShadowDom: true\n}).attachFile('test1.png');\ncy.wait(2000);\ncy.get(\".smart-item-name\", {\n  includeShadowDom: true\n}).contains('test1.png');",
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-videos\",\n  \"value\": \"cypress\\\\e2e\\\\API-Test\\\\9.Oauth2.cy.js\"\n}",
+              "code": "cy.request({\n  method: 'POST',\n  url: 'https://github.com/login/oauth/access_token',\n  qs: {\n    client_id: '6622f8e44b0af46ec829',\n    client_secret: '6444e5f1349655dbc0a9db8283b9d2d9e36eb2b0',\n    code: '7919a0bf14b8cabfc199'\n  }\n}).then(response => {\n  //results body: access_token=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&scope=&token_type=bearer\n  const ob = response.body.split('&');\n  access_token = ob[0].split('=')[1];\n  cy.log(\"token is: \" + access_token);\n});",
               "err": {},
-              "uuid": "3cd24d03-f119-4119-a3b7-64f8c2ae30e0",
-              "parentUUID": "4e14ce03-8346-4e38-a3b6-c4a925b828d6",
+              "uuid": "74c8e52b-296b-4938-a978-b96cfb4ed3f7",
+              "parentUUID": "5935078b-d391-4d12-87e4-e11084320e55",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "send Get request by using access token",
+              "fullTitle": "Oauth2 testing send Get request by using access token",
+              "timedOut": null,
+              "duration": 21973,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"cypress-mochawesome-reporter-videos\",\n    \"value\": \"cypress\\\\e2e\\\\API-Test\\\\9.Oauth2.cy.js\"\n  },\n  {\n    \"title\": \"cypress-mochawesome-reporter-screenshots\",\n    \"value\": [\n      [\n        {\n          \"title\": \"Failed screenshot\",\n          \"value\": \"\\\\API-Test\\\\9.Oauth2.cy.js\\\\Oauth2 testing -- send Get request by using access token (failed).png\"\n        }\n      ]\n    ]\n  }\n]",
+              "code": "cy.request({\n  method: 'GET',\n  url: 'https://api.github.com/user/repos',\n  headers: {\n    Authorization: 'Bearer ' + access_token\n  }\n}).then(response => {\n  expect(response.status).to.equal(200);\n});",
+              "err": {
+                "message": "CypressError: `cy.request()` failed on:\n\nhttps://api.github.com/user/repos\n\nThe response we received from your web server was:\n\n  > 401: Unauthorized\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: GET\nURL: https://api.github.com/user/repos\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Authorization\": \"Bearer bad_verification_code\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/12.12.0 Chrome/106.0.5249.51 Electron/21.0.0 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\"\n}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 401 - Unauthorized\nHeaders: {\n  \"server\": \"GitHub.com\",\n  \"date\": \"Tue, 10 Oct 2023 17:07:14 GMT\",\n  \"content-type\": \"application/json; charset=utf-8\",\n  \"content-length\": \"90\",\n  \"x-github-media-type\": \"github.v3; format=json\",\n  \"x-ratelimit-limit\": \"60\",\n  \"x-ratelimit-remaining\": \"55\",\n  \"x-ratelimit-reset\": \"1696959355\",\n  \"x-ratelimit-used\": \"5\",\n  \"x-ratelimit-resource\": \"core\",\n  \"access-control-expose-headers\": \"ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset\",\n  \"access-control-allow-origin\": \"*\",\n  \"strict-transport-security\": \"max-age=31536000; includeSubdomains; preload\",\n  \"x-frame-options\": \"deny\",\n  \"x-content-type-options\": \"nosniff\",\n  \"x-xss-protection\": \"0\",\n  \"referrer-policy\": \"origin-when-cross-origin, strict-origin-when-cross-origin\",\n  \"content-security-policy\": \"default-src 'none'\",\n  \"vary\": \"Accept-Encoding, Accept, X-Requested-With\",\n  \"x-github-request-id\": \"3392:238AF:86B0D:90926:652584C1\"\n}\nBody: {\n  \"message\": \"Bad credentials\",\n  \"documentation_url\": \"https://docs.github.com/rest\"\n}\n\n\nhttps://on.cypress.io/request",
+                "estack": "CypressError: `cy.request()` failed on:\n\nhttps://api.github.com/user/repos\n\nThe response we received from your web server was:\n\n  > 401: Unauthorized\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: GET\nURL: https://api.github.com/user/repos\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Authorization\": \"Bearer bad_verification_code\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/12.12.0 Chrome/106.0.5249.51 Electron/21.0.0 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\"\n}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 401 - Unauthorized\nHeaders: {\n  \"server\": \"GitHub.com\",\n  \"date\": \"Tue, 10 Oct 2023 17:07:14 GMT\",\n  \"content-type\": \"application/json; charset=utf-8\",\n  \"content-length\": \"90\",\n  \"x-github-media-type\": \"github.v3; format=json\",\n  \"x-ratelimit-limit\": \"60\",\n  \"x-ratelimit-remaining\": \"55\",\n  \"x-ratelimit-reset\": \"1696959355\",\n  \"x-ratelimit-used\": \"5\",\n  \"x-ratelimit-resource\": \"core\",\n  \"access-control-expose-headers\": \"ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset\",\n  \"access-control-allow-origin\": \"*\",\n  \"strict-transport-security\": \"max-age=31536000; includeSubdomains; preload\",\n  \"x-frame-options\": \"deny\",\n  \"x-content-type-options\": \"nosniff\",\n  \"x-xss-protection\": \"0\",\n  \"referrer-policy\": \"origin-when-cross-origin, strict-origin-when-cross-origin\",\n  \"content-security-policy\": \"default-src 'none'\",\n  \"vary\": \"Accept-Encoding, Accept, X-Requested-With\",\n  \"x-github-request-id\": \"3392:238AF:86B0D:90926:652584C1\"\n}\nBody: {\n  \"message\": \"Bad credentials\",\n  \"documentation_url\": \"https://docs.github.com/rest\"\n}\n\n\nhttps://on.cypress.io/request\n    at <unknown> (http://localhost:61658/__cypress/runner/cypress_runner.js:149154:80)\n    at tryCatcher (http://localhost:61658/__cypress/runner/cypress_runner.js:18744:23)\n    at Promise._settlePromiseFromHandler (http://localhost:61658/__cypress/runner/cypress_runner.js:16679:31)\n    at Promise._settlePromise (http://localhost:61658/__cypress/runner/cypress_runner.js:16736:18)\n    at Promise._settlePromise0 (http://localhost:61658/__cypress/runner/cypress_runner.js:16781:10)\n    at Promise._settlePromises (http://localhost:61658/__cypress/runner/cypress_runner.js:16861:18)\n    at _drainQueueStep (http://localhost:61658/__cypress/runner/cypress_runner.js:13451:12)\n    at _drainQueue (http://localhost:61658/__cypress/runner/cypress_runner.js:13444:9)\n    at ../../node_modules/bluebird/js/release/async.js.Async._drainQueues (http://localhost:61658/__cypress/runner/cypress_runner.js:13460:5)\n    at Async.drainQueues (http://localhost:61658/__cypress/runner/cypress_runner.js:13330:14)\nFrom Your Spec Code:\n    at Context.eval (webpack:///./cypress/e2e/API-Test/9.Oauth2.cy.js:37:11)",
+                "diff": null
+              },
+              "uuid": "b8c95853-1a83-4d53-87be-fc081b54cfe1",
+              "parentUUID": "5935078b-d391-4d12-87e4-e11084320e55",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "3cd24d03-f119-4119-a3b7-64f8c2ae30e0"
+            "74c8e52b-296b-4938-a978-b96cfb4ed3f7"
           ],
-          "failures": [],
+          "failures": [
+            "b8c95853-1a83-4d53-87be-fc081b54cfe1"
+          ],
           "pending": [],
           "skipped": [],
-          "duration": 10118,
+          "duration": 24813,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
